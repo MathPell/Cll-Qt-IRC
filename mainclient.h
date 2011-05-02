@@ -24,6 +24,8 @@ private slots:
 
     void on_pbCreeChat_clicked();
 
+signals:
+    void DataReceive(QByteArray);
 private:
     Ui::MainClient *ui;
     QTcpSocket *sockClient;

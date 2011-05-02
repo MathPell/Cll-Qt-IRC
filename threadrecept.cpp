@@ -1,6 +1,12 @@
 #include "threadrecept.h"
-
-ThreadRecept::ThreadRecept(QObject *parent) :
-    QThread(parent)
+#include "mainclient.h"
+#include "ui_mainclient.h"
+#include <QTcpSocket>
+ThreadRecept::ThreadRecept(QTcpSocket *sockclient) :  QThread()
 {
+    socket = sockclient;
+}
+void ThreadRecept::FonctionLecture(QByteArray bRecue)
+{
+
 }

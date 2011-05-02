@@ -1,5 +1,6 @@
 #include "mainclient.h"
 #include "ui_mainclient.h"
+#include "threadrecept.h"
 #include <QtGui>
 #include <QTcpSocket>
 #include <QTimer>
@@ -12,6 +13,7 @@ MainClient::MainClient(QWidget *parent) :
     ui->pbCreeChat->hide();
     ui->pbConnection->hide();
     ui->gbChatRoom->hide();
+
 }
 
 MainClient::~MainClient()
@@ -71,6 +73,8 @@ void MainClient::on_pbConnection_clicked()
     {
       ui->gbConnection->hide();
       ui->gbChatRoom->show();
+      ThreadRecept *clientLect = new ThreadRecept(sockClient);
+      connect(this, SIGNAL(DataReceive(QByteArray)),clientLect,SLOT(FonctionLecture(QByteArray)));
     }
 }
 void MainClient::on_pbCreeChat_clicked()
