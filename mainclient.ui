@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainClient</class>
+ <widget class="QMainWindow" name="MainClient">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>758</width>
+    <height>678</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainClient</string>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <widget class="QGroupBox" name="gbConnection">
+    <property name="geometry">
+     <rect>
+      <x>40</x>
+      <y>20</y>
+      <width>491</width>
+      <height>327</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>Connection</string>
+    </property>
+    <widget class="QPushButton" name="pbRequeteChat">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>30</y>
+       <width>118</width>
+       <height>27</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Recherche chat</string>
+     </property>
+    </widget>
+    <widget class="QTextEdit" name="textEdit">
+     <property name="geometry">
+      <rect>
+       <x>129</x>
+       <y>58</y>
+       <width>256</width>
+       <height>192</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="leConnect">
+     <property name="geometry">
+      <rect>
+       <x>129</x>
+       <y>256</y>
+       <width>146</width>
+       <height>27</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Entré une ChatRoom</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pbConnection">
+     <property name="geometry">
+      <rect>
+       <x>17</x>
+       <y>256</y>
+       <width>92</width>
+       <height>27</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Connection</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pbCreeChat">
+     <property name="geometry">
+      <rect>
+       <x>17</x>
+       <y>289</y>
+       <width>106</width>
+       <height>27</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Création chat</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="leCreeChat">
+     <property name="geometry">
+      <rect>
+       <x>129</x>
+       <y>289</y>
+       <width>146</width>
+       <height>27</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Entré un nom </string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="leUser">
+     <property name="geometry">
+      <rect>
+       <x>350</x>
+       <y>270</y>
+       <width>113</width>
+       <height>27</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Entrer un nom</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label">
+     <property name="geometry">
+      <rect>
+       <x>280</x>
+       <y>270</y>
+       <width>81</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Username</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="leHostConnect">
+     <property name="geometry">
+      <rect>
+       <x>130</x>
+       <y>30</y>
+       <width>141</width>
+       <height>27</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Serveur IP</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QGroupBox" name="gbChatRoom">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>360</y>
+      <width>691</width>
+      <height>591</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>ChatRoom</string>
+    </property>
+    <widget class="QTextEdit" name="teChatRoom">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>20</y>
+       <width>451</width>
+       <height>411</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QTextEdit" name="teChatEnvoie">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>440</y>
+       <width>451</width>
+       <height>61</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pbEnvoie">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>510</y>
+       <width>93</width>
+       <height>27</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Envoie</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pbFermerChat">
+     <property name="geometry">
+      <rect>
+       <x>130</x>
+       <y>510</y>
+       <width>93</width>
+       <height>27</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Fermer Chat</string>
+     </property>
+    </widget>
+    <widget class="QTextEdit" name="teUser">
+     <property name="geometry">
+      <rect>
+       <x>510</x>
+       <y>20</y>
+       <width>161</width>
+       <height>481</height>
+      </rect>
+     </property>
+    </widget>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>758</width>
+     <height>23</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QToolBar" name="mainToolBar">
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources/>
+ <connections/>
+</ui>
