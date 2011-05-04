@@ -36,7 +36,7 @@ private:
     Ui::MainClient *ui;
     QTcpSocket *sockClient;
     QByteArray baReception;
-    QBool m_etat;
+    bool m_etat;
 };
 
 #endif // MAINCLIENT_H

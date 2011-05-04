@@ -10,9 +10,11 @@ MainClient::MainClient(QWidget *parent) :
     ui(new Ui::MainClient)
 {
     ui->setupUi(this);
+
     ui->pbCreeChat->hide();
     ui->pbConnection->hide();
     ui->gbChatRoom->hide();
+    m_etat= true;
 
 }
 
@@ -83,7 +85,7 @@ void MainClient::on_pbConnection_clicked()
       ui->gbChatRoom->show();//show le groupbox chat
       baReception.clear();
       baReception.append(sockClient->read(sockClient->bytesAvailable())); // Lecture des données
-      ui->teUser->setText(QString::append(baReception));//Lecture des Users
+      ui->teUser->setText(QString(baReception));//Lecture des Users
       Lecture();
      //ThreadRecept *clientLect = new ThreadRecept(sockClient);
      // connect(this, SIGNAL(DataReceive(QByteArray)),clientLect,SLOT(FonctionLecture(QByteArray)));
@@ -124,25 +126,21 @@ void MainClient::Lecture()
    QByteArray baReception;
    QString Validation ="Use#";
     while(m_etat)
-    {
-        int i =0;
-        QString SerValid = "";
+    {      
         baReception.clear();
-        while (sockClient.waitForReadyRead(100)) // Attente des données pendant 0.1 sec maximum
-             baReception.append(sockClient.read(sockClient.bytesAvailable())); // Lecture des données
+        while (sockClient->waitForReadyRead(100)) // Attente des données pendant 0.1 sec maximum
+             baReception.append(sockClient->read(sockClient->bytesAvailable())); // Lecture des données
 
-        SerValid.append(baReception);
-        SerValid.truncate(4);
-        if(SerValid == Validation)
+
+        if(QString(baReception.left(4)) == Validation)
         {
-            baReception.truncate();
-            ui->teUser->setText(QString::startsWith());
+            ui->teUser->setText(QString(baReception.right(5)));
         }
-        ui->teChatRoom->setText(QString::append(baReception));
+        ui->teChatRoom->setText(QString(baReception));
 
     }
-    sockClient.disconnectFromHost(); // Annonce de déconnexion au serveur
-    sockClient.close(); // Fermeture du socket
+    sockClient->disconnectFromHost(); // Annonce de déconnexion au serveur
+    sockClient->close(); // Fermeture du socket
     ui->pbCreeChat->hide();
     ui->pbConnection->hide();
     ui->gbChatRoom->hide();
@@ -156,5 +154,6 @@ void MainClient::on_pbFermerChat_clicked()
 
 void MainClient::on_pbEnvoie_clicked()
 {
-   sockClient->write("Env#"+ui->leUser->text()+"-> "+ ui->teChatEnvoie->toPlainText());
+    QString Envoie = "Env#"+ui->leUser->text()+"-> "+ ui->teChatEnvoie->toPlainText();
+    sockClient->write(Envoie.toAscii());
 }
