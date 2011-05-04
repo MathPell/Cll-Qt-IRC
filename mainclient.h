@@ -24,12 +24,19 @@ private slots:
 
     void on_pbCreeChat_clicked();
 
+    void Lecture();
+
+    void on_pbFermerChat_clicked();
+
+    void on_pbEnvoie_clicked();
+
 signals:
     void DataReceive(QByteArray);
 private:
     Ui::MainClient *ui;
     QTcpSocket *sockClient;
     QByteArray baReception;
+    QBool m_etat;
 };
 
 #endif // MAINCLIENT_H

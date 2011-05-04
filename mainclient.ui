@@ -39,16 +39,6 @@
       <string>Recherche chat</string>
      </property>
     </widget>
-    <widget class="QTextEdit" name="textEdit">
-     <property name="geometry">
-      <rect>
-       <x>129</x>
-       <y>58</y>
-       <width>256</width>
-       <height>192</height>
-      </rect>
-     </property>
-    </widget>
     <widget class="QLineEdit" name="leConnect">
      <property name="geometry">
       <rect>
@@ -140,12 +130,22 @@
       <string>Serveur IP</string>
      </property>
     </widget>
+    <widget class="QListWidget" name="lwChatRoom">
+     <property name="geometry">
+      <rect>
+       <x>130</x>
+       <y>60</y>
+       <width>256</width>
+       <height>192</height>
+      </rect>
+     </property>
+    </widget>
    </widget>
    <widget class="QGroupBox" name="gbChatRoom">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>350</y>
+      <x>30</x>
+      <y>0</y>
       <width>691</width>
       <height>591</height>
      </rect>
@@ -153,16 +153,6 @@
     <property name="title">
      <string>ChatRoom</string>
     </property>
-    <widget class="QTextEdit" name="teChatRoom">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>20</y>
-       <width>451</width>
-       <height>411</height>
-      </rect>
-     </property>
-    </widget>
     <widget class="QTextEdit" name="teChatEnvoie">
      <property name="geometry">
       <rect>
@@ -206,6 +196,16 @@
        <y>20</y>
        <width>161</width>
        <height>481</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QTextEdit" name="teChatRoom">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>20</y>
+       <width>451</width>
+       <height>411</height>
       </rect>
      </property>
     </widget>
