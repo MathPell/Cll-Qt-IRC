@@ -48,6 +48,9 @@ void MainClient::on_pbRequeteChat_clicked()
         {
             ui->pbCreeChat->show();
             ui->pbConnection->show();
+            sockClient->waitForReadyRead();
+            baReception.append(sockClient->read(sockClient->bytesAvailable())); // Lecture des données
+            ui->teRoom->setText(QString(baReception));
         }
     }
     catch (...)
@@ -105,6 +108,7 @@ void MainClient::on_pbCreeChat_clicked()
        ////Création de la trame Creation et envoie////
     QString Creation = "Cre#" + ui->leCreeChat->text();
     sockClient->write(Creation.toAscii());
+    sockClient->waitForBytesWritten();
 
         ////Lecture de la Validation////
 

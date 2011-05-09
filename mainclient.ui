@@ -130,13 +130,13 @@
       <string>Serveur IP</string>
      </property>
     </widget>
-    <widget class="QListWidget" name="lwChatRoom">
+    <widget class="QTextEdit" name="teRoom">
      <property name="geometry">
       <rect>
        <x>130</x>
-       <y>60</y>
-       <width>256</width>
-       <height>192</height>
+       <y>70</y>
+       <width>201</width>
+       <height>171</height>
       </rect>
      </property>
     </widget>
@@ -144,8 +144,8 @@
    <widget class="QGroupBox" name="gbChatRoom">
     <property name="geometry">
      <rect>
-      <x>30</x>
-      <y>0</y>
+      <x>50</x>
+      <y>400</y>
       <width>711</width>
       <height>621</height>
      </rect>
