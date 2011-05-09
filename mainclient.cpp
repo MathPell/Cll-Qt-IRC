@@ -68,7 +68,7 @@ void MainClient::on_pbConnection_clicked()
         msgBox->setDefaultButton(QMessageBox::Cancel);
 
         //Création de la trame Connect et envoie//
-    QString Connect = "Con#" +ui->lwChatRoom->currentItem()->text() +"#"+ui->leUser->text();
+    QString Connect = "Con#" +ui->leCreeChat->text() +"#"+ui->leUser->text();
     sockClient->write(Connect.toAscii());
 
     ////Lecture de la Validation////
@@ -110,7 +110,7 @@ void MainClient::on_pbCreeChat_clicked()
 
     baReception.clear();
     QString Validation ="Accp";
-    while (sockClient->waitForReadyRead(100)) // Attente des données pendant 0.1 sec maximum
+    while (sockClient->waitForReadyRead()) // Attente des données pendant 0.1 sec maximum
         baReception.append(sockClient->read(sockClient->bytesAvailable())); // Lecture des données
     if( Validation.toAscii() != baReception)
     {
