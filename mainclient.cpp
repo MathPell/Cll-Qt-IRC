@@ -158,22 +158,22 @@ void MainClient::on_pbEnvoie_clicked()
 
 void MainClient::on_teChatEnvoie_textChanged()
 {
-    ui->txtNbDeLettres->setText(QString(ui->teChatEnvoie->toPlainText().size() & "/" & m_strCaracMax);
+    ui->txtNbDeLettres->setText(QString(ui->teChatEnvoie->toPlainText().size() + "/" + m_strCaracMax));
 }
 
 void MainClient::on_teUser_textChanged()
 {
-    ui->teNbDePersonne->setText(QString(ui->teUser->toPlainText().count("\n") & "/" & m_strUtilisateur));
+    ui->teNbDePersonne->setText(QString(ui->teUser->toPlainText().count("\n") + "/" + m_strUtilisateur));
 }
 
 void MainClient::on_sbNbCracMax_valueChanged(QString strCaracMax)
 {
-    m_strCaracMax = "/" & strCaracMax;
-    ui->teChatEnvoie->textChanged();
+    m_strCaracMax = "/" + strCaracMax;
+    on_teChatEnvoie_textChanged();
 }
 
 void MainClient::on_sbUtilisateurMax_valueChanged(QString strUtilisateurMax)
 {
-    m_strUtilisateur = "/" & strUtilisateurMax;
-    ui->teUser->textChanged();
+    m_strUtilisateur = "/" + strUtilisateurMax;
+    on_teUser_textChanged();
 }
