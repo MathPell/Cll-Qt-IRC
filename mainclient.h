@@ -30,6 +30,14 @@ private slots:
 
     void on_pbEnvoie_clicked();
 
+    void on_teChatEnvoie_textChanged();
+
+    void on_teUser_textChanged();
+
+    void on_sbNbCracMax_valueChanged(QString );
+
+    void on_sbUtilisateurMax_valueChanged(QString );
+
 signals:
     void DataReceive(QByteArray);
 private:
@@ -37,6 +45,8 @@ private:
     QTcpSocket *sockClient;
     QByteArray baReception;
     bool m_etat;
+    QString m_strCaracMax;
+    QString m_strUtilisateur;
 };
 
 #endif // MAINCLIENT_H

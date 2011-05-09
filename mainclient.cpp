@@ -137,7 +137,6 @@ void MainClient::Lecture()
             ui->teUser->setText(QString(baReception.right(5)));
         }
         ui->teChatRoom->setText(QString(baReception));
-
     }
     sockClient->disconnectFromHost(); // Annonce de déconnexion au serveur
     sockClient->close(); // Fermeture du socket
@@ -145,7 +144,6 @@ void MainClient::Lecture()
     ui->pbConnection->hide();
     ui->gbChatRoom->hide();
 }
-
 
 void MainClient::on_pbFermerChat_clicked()
 {
@@ -156,4 +154,26 @@ void MainClient::on_pbEnvoie_clicked()
 {
     QString Envoie = "Env#"+ui->leUser->text()+"-> "+ ui->teChatEnvoie->toPlainText();
     sockClient->write(Envoie.toAscii());
+}
+
+void MainClient::on_teChatEnvoie_textChanged()
+{
+    ui->txtNbDeLettres->setText(QString(ui->teChatEnvoie->toPlainText().size() & "/" & m_strCaracMax);
+}
+
+void MainClient::on_teUser_textChanged()
+{
+    ui->teNbDePersonne->setText(QString(ui->teUser->toPlainText().count("\n") & "/" & m_strUtilisateur));
+}
+
+void MainClient::on_sbNbCracMax_valueChanged(QString strCaracMax)
+{
+    m_strCaracMax = "/" & strCaracMax;
+    ui->teChatEnvoie->textChanged();
+}
+
+void MainClient::on_sbUtilisateurMax_valueChanged(QString strUtilisateurMax)
+{
+    m_strUtilisateur = "/" & strUtilisateurMax;
+    ui->teUser->textChanged();
 }
