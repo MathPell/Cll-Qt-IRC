@@ -127,7 +127,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>Serveur IP</string>
+      <string>127.0.0.1</string>
      </property>
     </widget>
     <widget class="QTextEdit" name="teRoom">

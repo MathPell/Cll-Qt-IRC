@@ -40,6 +40,7 @@ void MainClient::on_pbRequeteChat_clicked()
     try
     {
         sockClient->connectToHost(ui->leHostConnect->text(),60123);
+
         if(!sockClient->waitForConnected(1000))
         {
             msgBox->exec();
@@ -73,6 +74,7 @@ void MainClient::on_pbConnection_clicked()
         //Création de la trame Connect et envoie//
     QString Connect = "Con#" +ui->leCreeChat->text() +"#"+ui->leUser->text();
     sockClient->write(Connect.toAscii());
+    sockClient->waitForBytesWritten();
 
     ////Lecture de la Validation////
     QString Validation ="Accp";
@@ -114,15 +116,18 @@ void MainClient::on_pbCreeChat_clicked()
 
     baReception.clear();
     QString Validation ="Accp";
-    while (sockClient->waitForReadyRead()) // Attente des données pendant 0.1 sec maximum
-        baReception.append(sockClient->read(sockClient->bytesAvailable())); // Lecture des données
+    sockClient->waitForReadyRead(-1);// Attente des données pendant 0.1 sec maximum
+    baReception.append(sockClient->read(sockClient->bytesAvailable())); // Lecture des données
     if( Validation.toAscii() != baReception)
     {
          msgBox->exec();
     }
     else
     {
-         on_pbConnection_clicked();
+        msgBox->setText("!!!Erreur lors de la création de la ChatRoom!!!");
+        msgBox->setInformativeText("SA MARCHE COLISS");
+        msgBox->exec();
+        on_pbConnection_clicked();
     }
 }
 void MainClient::Lecture()
