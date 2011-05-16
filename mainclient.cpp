@@ -15,20 +15,18 @@ MainClient::MainClient(QWidget *parent) :
     ui->pbConnection->hide();
     ui->gbChatRoom->hide();
     m_etat= true;
-
 }
 
 MainClient::~MainClient()
 {
     sockClient->close();
     delete ui;
-
 }
 
 
 void MainClient::on_pbRequeteChat_clicked()
 {
-   ////Connection au Serveur Chat et envoie de la requette////
+   //Connection au Serveur Chat et envoie de la requette
 
     sockClient = new QTcpSocket;
     try
@@ -56,18 +54,18 @@ void MainClient::on_pbRequeteChat_clicked()
 }
 void MainClient::on_pbConnection_clicked()
 {
-    ////Connection à une ChatRoom////
+    //Connection à une ChatRoom
 
-    //Création de la trame Connect et envoie//
+    //Création de la trame Connect et envoie de celle-ci
     QString Connect = "Con#" +ui->leCreeChat->text() +"#"+ui->leUser->text();
     sockClient->write(Connect.toAscii());
     sockClient->waitForBytesWritten();
 
-    ////Lecture de la Validation////
-    QString Validation ="Accp";
+    //Lecture de la Validation
     while (sockClient->waitForReadyRead(100)) // Attente des données pendant 0.1 sec maximum
         baReception.append(sockClient->read(sockClient->bytesAvailable())); // Lecture des données
-    if( Validation.toAscii() != baReception)
+
+    if( QString("Accp").toAscii() != baReception)
     {
         AfficherMsgBox("Erreur lors de la connection au serveur.","Le nom de la ChatRoom est incorrect ou le username est déjà pris.");
     }
@@ -85,27 +83,20 @@ void MainClient::on_pbConnection_clicked()
 }
 void MainClient::on_pbCreeChat_clicked()
 {
-    ////création du chat////
+    //Création d'un ChatRoom
 
-
-    QMessageBox *msgBox = new QMessageBox;
-        msgBox->setText("!!!Erreur lors de la création de la ChatRoom!!!");
-        msgBox->setInformativeText("Le nom de la ChatRoom est déjà pris");
-        msgBox->setStandardButtons(QMessageBox::Cancel);
-        msgBox->setDefaultButton(QMessageBox::Cancel);
-
-       ////Création de la trame Creation et envoie////
+    //Création de la trame Creation et envoie
     QString Creation = "Cre#" + ui->leCreeChat->text();
     sockClient->write(Creation.toAscii());
     sockClient->waitForBytesWritten();
 
-    ////Lecture de la Validation////
-
+    //Lecture de la Validation
     baReception.clear();
-    QString Validation ="Accp";
-    sockClient->waitForReadyRead(-1);// Attente des données pendant 0.1 sec maximum
+    sockClient->waitForReadyRead(-1); //Attente des données pendant 0.1 sec maximum
     baReception.append(sockClient->read(sockClient->bytesAvailable())); // Lecture des données
-    if( Validation.toAscii() != baReception)
+
+    //Si pas accepté
+    if( QString("Accp").toAscii() != baReception)
     {
         AfficherMsgBox("Erreur lors de la création de la ChatRoom.","Le nom de la ChatRoom est déjà pris.");
     }
@@ -115,10 +106,11 @@ void MainClient::on_pbCreeChat_clicked()
         on_pbConnection_clicked();
     }
 }
+
 void MainClient::Lecture()
 {
    QByteArray baReception;
-   QString Validation ="Use#";
+
     while(m_etat)
     {      
         baReception.clear();
@@ -126,7 +118,7 @@ void MainClient::Lecture()
              baReception.append(sockClient->read(sockClient->bytesAvailable())); // Lecture des données
 
 
-        if(QString(baReception.left(4)) == Validation)
+        if(QString(baReception.left(4)) == QString("Use#"))
         {
             ui->teUser->setText(QString(baReception.right(5)));
         }
