@@ -49,7 +49,7 @@ void MainClient::on_pbRequeteChat_clicked()
         {
             ui->pbCreeChat->show();
             ui->pbConnection->show();
-            sockClient->waitForReadyRead();
+            sockClient->waitForReadyRead(-1);
             baReception.append(sockClient->read(sockClient->bytesAvailable())); // Lecture des données
             ui->teRoom->setText(QString(baReception));
         }
@@ -78,9 +78,11 @@ void MainClient::on_pbConnection_clicked()
 
     ////Lecture de la Validation////
     QString Validation ="Accp";
-    while (sockClient->waitForReadyRead(100)) // Attente des données pendant 0.1 sec maximum
-        baReception.append(sockClient->read(sockClient->bytesAvailable())); // Lecture des données
-    if( Validation.toAscii() != baReception)
+    baReception.clear();
+    sockClient->waitForReadyRead(-1);// Attente des données pendant 0.1 sec maximum
+    baReception.append(sockClient->read(sockClient->bytesAvailable())); // Lecture des données
+        QString ba(baReception);
+    if(Validation.toAscii() != baReception)
     {
         msgBox->exec();
     }
@@ -89,9 +91,9 @@ void MainClient::on_pbConnection_clicked()
       ui->gbConnection->hide();//Hide le groupbox connection
       ui->gbChatRoom->show();//show le groupbox chat
       baReception.clear();
-      baReception.append(sockClient->read(sockClient->bytesAvailable())); // Lecture des données
-      ui->teUser->setText(QString(baReception));//Lecture des Users
-      Lecture();
+      //baReception.append(sockClient->read(sockClient->bytesAvailable())); // Lecture des données
+      //ui->teUser->setText(QString(baReception));//Lecture des Users
+     // Lecture();
      //ThreadRecept *clientLect = new ThreadRecept(sockClient);
      // connect(this, SIGNAL(DataReceive(QByteArray)),clientLect,SLOT(FonctionLecture(QByteArray)));
     }
@@ -116,8 +118,9 @@ void MainClient::on_pbCreeChat_clicked()
 
     baReception.clear();
     QString Validation ="Accp";
-    sockClient->waitForReadyRead(-1);// Attente des données pendant 0.1 sec maximum
+    sockClient->waitForReadyRead(-1);// Attente des données
     baReception.append(sockClient->read(sockClient->bytesAvailable())); // Lecture des données
+    QString ba(baReception);
     if( Validation.toAscii() != baReception)
     {
          msgBox->exec();
@@ -137,7 +140,7 @@ void MainClient::Lecture()
     while(m_etat)
     {      
         baReception.clear();
-        while (sockClient->waitForReadyRead(100)) // Attente des données pendant 0.1 sec maximum
+             sockClient->waitForReadyRead(-1); // Attente des données pendant 0.1 sec maximum
              baReception.append(sockClient->read(sockClient->bytesAvailable())); // Lecture des données
 
 
@@ -163,6 +166,7 @@ void MainClient::on_pbEnvoie_clicked()
 {
     QString Envoie = "Env#"+ui->leUser->text()+"-> "+ ui->teChatEnvoie->toPlainText();
     sockClient->write(Envoie.toAscii());
+    sockClient->waitForBytesWritten();
 }
 
 void MainClient::on_teChatEnvoie_textChanged()
