@@ -24,7 +24,7 @@ private slots:
 
     void on_pbCreeChat_clicked();
 
-    void Lecture();
+    void Lecture(QString);
 
     void on_pbFermerChat_clicked();
 
@@ -42,6 +42,7 @@ private slots:
 
 signals:
     void DataReceive(QByteArray);
+    void SortieChat();
 private:
     Ui::MainClient *ui;
     QTcpSocket *sockClient;

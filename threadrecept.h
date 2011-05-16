@@ -14,11 +14,14 @@ public:
 
 public slots:
     void FonctionLecture(QByteArray);
+    void SortieChat();
 
 signals:
+    void On_Lecture(QString);
 
 private:
-     QTcpSocket *socket;
+     bool m_etat;
+     QTcpSocket *sockClient;
 public slots:
 
 };

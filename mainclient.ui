@@ -144,8 +144,8 @@
    <widget class="QGroupBox" name="gbChatRoom">
     <property name="geometry">
      <rect>
-      <x>160</x>
-      <y>410</y>
+      <x>10</x>
+      <y>0</y>
       <width>711</width>
       <height>621</height>
      </rect>

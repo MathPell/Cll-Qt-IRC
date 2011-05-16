@@ -46,16 +46,13 @@ void MainClient::on_pbRequeteChat_clicked()
         {
             ui->pbCreeChat->show();
             ui->pbConnection->show();
-<<<<<<< HEAD
-            sockClient->waitForReadyRead(-1);
-=======
+
             ui->lblUsername->show();
             ui->leConnect->show();
             ui->leCreeChat->show();
             ui->leUser->show();
 
-            sockClient->waitForReadyRead();
->>>>>>> 73316073971223f4c15d4779a07a2f17de3e996b
+            sockClient->waitForReadyRead(-1);
             baReception.append(sockClient->read(sockClient->bytesAvailable())); // Lecture des données
             ui->teRoom->setText(QString(baReception));
         }
@@ -75,21 +72,13 @@ void MainClient::on_pbConnection_clicked()
     sockClient->write(Connect.toAscii());
     sockClient->waitForBytesWritten();
 
-<<<<<<< HEAD
     ////Lecture de la Validation////
     QString Validation ="Accp";
     baReception.clear();
-    sockClient->waitForReadyRead(-1);// Attente des données pendant 0.1 sec maximum
+    sockClient->waitForReadyRead(-1);// Attente des données
     baReception.append(sockClient->read(sockClient->bytesAvailable())); // Lecture des données
         QString ba(baReception);
     if(Validation.toAscii() != baReception)
-=======
-    //Lecture de la Validation
-    while (sockClient->waitForReadyRead(100)) // Attente des données pendant 0.1 sec maximum
-        baReception.append(sockClient->read(sockClient->bytesAvailable())); // Lecture des données
-
-    if( QString("Accp").toAscii() != baReception)
->>>>>>> 73316073971223f4c15d4779a07a2f17de3e996b
     {
         AfficherMsgBox("Erreur lors de la connection au serveur.","Le nom de la ChatRoom est incorrect ou le username est déjà pris.");
     }
@@ -101,10 +90,13 @@ void MainClient::on_pbConnection_clicked()
       //baReception.append(sockClient->read(sockClient->bytesAvailable())); // Lecture des données
       //ui->teUser->setText(QString(baReception));//Lecture des Users
      // Lecture();
-     //ThreadRecept *clientLect = new ThreadRecept(sockClient);
-     //connect(this, SIGNAL(DataReceive(QByteArray)),clientLect,SLOT(FonctionLecture(QByteArray)));
+     ThreadRecept *clientLect = new ThreadRecept(sockClient);
+     connect(this, SIGNAL(DataReceive(QByteArray)),clientLect,SLOT(FonctionLecture(QByteArray)));
+     connect(clientLect, SIGNAL(On_Lecture(QString)),clientLect,SLOT(Lecture(QString)));
+     connect(this,SIGNAL(SortieChat()),clientLect,SLOT(SortieChat()));
+ }
     }
-}
+
 void MainClient::on_pbCreeChat_clicked()
 {
     //Création d'un ChatRoom
@@ -116,19 +108,16 @@ void MainClient::on_pbCreeChat_clicked()
 
     //Lecture de la Validation
     baReception.clear();
-<<<<<<< HEAD
     QString Validation ="Accp";
     sockClient->waitForReadyRead(-1);// Attente des données
     baReception.append(sockClient->read(sockClient->bytesAvailable())); // Lecture des données
     QString ba(baReception);
     if( Validation.toAscii() != baReception)
-=======
     sockClient->waitForReadyRead(-1); //Attente des données pendant 0.1 sec maximum
     baReception.append(sockClient->read(sockClient->bytesAvailable())); //Lecture des données
 
     //Si pas accepté
     if( QString("Accp").toAscii() != baReception)
->>>>>>> 73316073971223f4c15d4779a07a2f17de3e996b
     {
         AfficherMsgBox("Erreur lors de la création de la ChatRoom.","Le nom de la ChatRoom est déjà pris.");
     }
@@ -139,33 +128,21 @@ void MainClient::on_pbCreeChat_clicked()
     }
 }
 
-void MainClient::Lecture()
+void MainClient::Lecture(QString Envoie)
 {
-   QByteArray baReception;
+    ui->teChatRoom->setText(Envoie);
 
-    while(m_etat)
-    {      
-        baReception.clear();
-             sockClient->waitForReadyRead(-1); // Attente des données pendant 0.1 sec maximum
-             baReception.append(sockClient->read(sockClient->bytesAvailable())); // Lecture des données
+}
 
-
-        if(QString(baReception.left(4)) == QString("Use#"))
-        {
-            ui->teUser->setText(QString(baReception.right(5)));
-        }
-        ui->teChatRoom->setText(QString(baReception));
-    }
+void MainClient::on_pbFermerChat_clicked()
+{
+    m_etat=false;   
     sockClient->disconnectFromHost(); //Annonce de déconnexion au serveur
     sockClient->close(); //Fermeture du socket
     ui->pbCreeChat->hide();
     ui->pbConnection->hide();
     ui->gbChatRoom->hide();
-}
-
-void MainClient::on_pbFermerChat_clicked()
-{
-    m_etat=false;
+    emit(SortieChat());
 }
 
 void MainClient::on_pbEnvoie_clicked()
