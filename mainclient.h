@@ -38,6 +38,8 @@ private slots:
 
     void on_sbUtilisateurMax_valueChanged(QString );
 
+    void AfficherMsgBox(QString , QString);
+
 signals:
     void DataReceive(QByteArray);
 private:
