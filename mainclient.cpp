@@ -13,13 +13,18 @@ MainClient::MainClient(QWidget *parent) :
 
     ui->pbCreeChat->hide();
     ui->pbConnection->hide();
+    ui->lblUsername->hide();
+    ui->leConnect->hide();
+    ui->leCreeChat->hide();
+    ui->leUser->hide();
     ui->gbChatRoom->hide();
     m_etat= true;
 }
 
 MainClient::~MainClient()
 {
-    sockClient->close();
+    if(sockClient->isOpen())
+        sockClient->close();
     delete ui;
 }
 
@@ -35,12 +40,17 @@ void MainClient::on_pbRequeteChat_clicked()
 
         if(!sockClient->waitForConnected(1000))
         {
-            AfficherMsgBox("Erreur lors de la connection au serveur.","Le numéro de l'IP entré n'estp as valide.");
+            AfficherMsgBox("Erreur lors de la connection au serveur.","Le numéro de l'IP entré n'est pas valide.");
         }
         else
         {
             ui->pbCreeChat->show();
             ui->pbConnection->show();
+            ui->lblUsername->show();
+            ui->leConnect->show();
+            ui->leCreeChat->show();
+            ui->leUser->show();
+
             sockClient->waitForReadyRead();
             baReception.append(sockClient->read(sockClient->bytesAvailable())); // Lecture des données
             ui->teRoom->setText(QString(baReception));
@@ -71,14 +81,14 @@ void MainClient::on_pbConnection_clicked()
     }
     else
     {
-      ui->gbConnection->hide();//Hide le groupbox connection
-      ui->gbChatRoom->show();//show le groupbox chat
+      ui->gbConnection->hide(); //Hide le groupbox connection
+      ui->gbChatRoom->show(); //Show le groupbox chat
       baReception.clear();
       baReception.append(sockClient->read(sockClient->bytesAvailable())); // Lecture des données
       ui->teUser->setText(QString(baReception));//Lecture des Users
       Lecture();
      //ThreadRecept *clientLect = new ThreadRecept(sockClient);
-     // connect(this, SIGNAL(DataReceive(QByteArray)),clientLect,SLOT(FonctionLecture(QByteArray)));
+     //connect(this, SIGNAL(DataReceive(QByteArray)),clientLect,SLOT(FonctionLecture(QByteArray)));
     }
 }
 void MainClient::on_pbCreeChat_clicked()
@@ -93,7 +103,7 @@ void MainClient::on_pbCreeChat_clicked()
     //Lecture de la Validation
     baReception.clear();
     sockClient->waitForReadyRead(-1); //Attente des données pendant 0.1 sec maximum
-    baReception.append(sockClient->read(sockClient->bytesAvailable())); // Lecture des données
+    baReception.append(sockClient->read(sockClient->bytesAvailable())); //Lecture des données
 
     //Si pas accepté
     if( QString("Accp").toAscii() != baReception)
@@ -124,8 +134,8 @@ void MainClient::Lecture()
         }
         ui->teChatRoom->setText(QString(baReception));
     }
-    sockClient->disconnectFromHost(); // Annonce de déconnexion au serveur
-    sockClient->close(); // Fermeture du socket
+    sockClient->disconnectFromHost(); //Annonce de déconnexion au serveur
+    sockClient->close(); //Fermeture du socket
     ui->pbCreeChat->hide();
     ui->pbConnection->hide();
     ui->gbChatRoom->hide();
