@@ -104,7 +104,7 @@
       <string>Entrer un nom</string>
      </property>
     </widget>
-    <widget class="QLabel" name="label">
+    <widget class="QLabel" name="lblUsername">
      <property name="geometry">
       <rect>
        <x>280</x>
@@ -144,8 +144,8 @@
    <widget class="QGroupBox" name="gbChatRoom">
     <property name="geometry">
      <rect>
-      <x>50</x>
-      <y>400</y>
+      <x>160</x>
+      <y>410</y>
       <width>711</width>
       <height>621</height>
      </rect>
@@ -274,7 +274,7 @@
       <string>Nombre de caractères maximale :</string>
      </property>
     </widget>
-    <widget class="QLabel" name="label_3">
+    <widget class="QLabel" name="lblNbUtilisaeursMax">
      <property name="geometry">
       <rect>
        <x>10</x>
