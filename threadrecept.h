@@ -13,11 +13,13 @@ public:
     explicit ThreadRecept(QTcpSocket *sockclient);
 
 public slots:
-    void FonctionLecture(QByteArray);
+  //  void Lecture();
     void SortieChat();
 
+    void run();
+
 signals:
-    void On_Lecture(QString);
+    void Lecture(QString);
 
 private:
      bool m_etat;

@@ -90,10 +90,10 @@ void MainClient::on_pbConnection_clicked()
       //baReception.append(sockClient->read(sockClient->bytesAvailable())); // Lecture des données
       //ui->teUser->setText(QString(baReception));//Lecture des Users
      // Lecture();
-     ThreadRecept *clientLect = new ThreadRecept(sockClient);
-     connect(this, SIGNAL(DataReceive(QByteArray)),clientLect,SLOT(FonctionLecture(QByteArray)));
-     connect(clientLect, SIGNAL(On_Lecture(QString)),clientLect,SLOT(Lecture(QString)));
+     ThreadRecept *clientLect = new ThreadRecept(sockClient);   
      connect(this,SIGNAL(SortieChat()),clientLect,SLOT(SortieChat()));
+     clientLect->start();
+
  }
     }
 
@@ -136,18 +136,22 @@ void MainClient::Lecture(QString Envoie)
 
 void MainClient::on_pbFermerChat_clicked()
 {
-    m_etat=false;   
+    m_etat=false;
+    QString fin = "Fin#";
+    sockClient->write(fin.toAscii());
+    sockClient->waitForBytesWritten();
     sockClient->disconnectFromHost(); //Annonce de déconnexion au serveur
     sockClient->close(); //Fermeture du socket
     ui->pbCreeChat->hide();
     ui->pbConnection->hide();
     ui->gbChatRoom->hide();
+    ui->gbConnection->show();
     emit(SortieChat());
 }
 
 void MainClient::on_pbEnvoie_clicked()
 {
-    QString Envoie = "Env#"+ui->leUser->text()+"-> "+ ui->teChatEnvoie->toPlainText();
+    QString Envoie = "Env#"+ui->teChatEnvoie->toPlainText();
     sockClient->write(Envoie.toAscii());
     sockClient->waitForBytesWritten();
 }

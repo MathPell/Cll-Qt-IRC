@@ -41,8 +41,9 @@ private slots:
     void AfficherMsgBox(QString , QString);
 
 signals:
-    void DataReceive(QByteArray);
+  //  void DataReceive(QByteArray);
     void SortieChat();
+   // void DebutLecture(QTcpSocket*);
 private:
     Ui::MainClient *ui;
     QTcpSocket *sockClient;

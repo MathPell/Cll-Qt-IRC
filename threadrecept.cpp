@@ -7,8 +7,9 @@ ThreadRecept::ThreadRecept(QTcpSocket *sockclient) :  QThread()
     sockClient= sockclient;
     m_etat=true;
 }
-void ThreadRecept::FonctionLecture(QByteArray baReception)
+void ThreadRecept::run()
 {
+    QByteArray baReception;
     while(m_etat)
     {
         baReception.clear();
@@ -16,9 +17,9 @@ void ThreadRecept::FonctionLecture(QByteArray baReception)
              baReception.append(sockClient->read(sockClient->bytesAvailable())); // Lecture des données
 
 
-        if(QString(baReception.left(4)) == QString("Use#"))
+        if(QString(baReception.left(4)) == QString("Env#"))
         {
-            emit(On_Lecture(QString(baReception.right(baReception.length()-4))));
+            emit(Lecture(QString(baReception.right(baReception.length()-4))));
         }
 
     }
