@@ -72,12 +72,11 @@ void MainClient::on_pbConnection_clicked()
     sockClient->write(Connect.toAscii());
     sockClient->waitForBytesWritten();
 
-    ////Lecture de la Validation////
+    //Lecture de la Validation
     QString Validation ="Accp";
     baReception.clear();
     sockClient->waitForReadyRead(-1);// Attente des données
     baReception.append(sockClient->read(sockClient->bytesAvailable())); // Lecture des données
-        QString ba(baReception);
     if(Validation.toAscii() != baReception)
     {
         AfficherMsgBox("Erreur lors de la connection au serveur.","Le nom de la ChatRoom est incorrect ou le username est déjà pris.");
@@ -89,13 +88,12 @@ void MainClient::on_pbConnection_clicked()
       baReception.clear();
       //baReception.append(sockClient->read(sockClient->bytesAvailable())); // Lecture des données
       //ui->teUser->setText(QString(baReception));//Lecture des Users
-     // Lecture();
-     ThreadRecept *clientLect = new ThreadRecept(sockClient);   
-     connect(this,SIGNAL(SortieChat()),clientLect,SLOT(SortieChat()));
-     clientLect->start();
-
- }
-    }
+      //Lecture();
+      ThreadRecept *clientLect = new ThreadRecept(sockClient);
+      connect(this,SIGNAL(SortieChat()),clientLect,SLOT(SortieChat()));
+      clientLect->start();
+     }
+}
 
 void MainClient::on_pbCreeChat_clicked()
 {

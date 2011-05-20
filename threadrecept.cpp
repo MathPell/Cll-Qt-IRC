@@ -16,12 +16,10 @@ void ThreadRecept::run()
              sockClient->waitForReadyRead(-1); // Attente des données pendant 0.1 sec maximum
              baReception.append(sockClient->read(sockClient->bytesAvailable())); // Lecture des données
 
-
         if(QString(baReception.left(4)) == QString("Env#"))
         {
             emit(Lecture(QString(baReception.right(baReception.length()-4))));
         }
-
     }
 
   }
